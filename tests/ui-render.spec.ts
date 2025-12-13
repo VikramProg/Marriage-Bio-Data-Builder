@@ -5,7 +5,7 @@ test.describe('Marriage Bio-Data Builder Flow Test', () => {
     test('should complete the full bio-data creation flow', async ({ page }) => {
         // 1. Visit App
         await page.goto('http://localhost:5173');
-        await expect(page).toHaveTitle(/Marriage Bio-Data Builder/);
+        await expect(page).toHaveTitle(/MatchMaker/);
 
         // 2. Welcome Screen -> Start
         await page.click('button:has-text("Create My Bio-Data")');
@@ -66,21 +66,21 @@ test.describe('Marriage Bio-Data Builder Flow Test', () => {
         await page.click('button:has-text("Done")');
 
         // 10. Final Review
-        await expect(page.locator('span', { hasText: 'Final Review' })).toBeVisible();
+        await expect(page.locator('h2', { hasText: 'Final Review' })).toBeVisible();
 
         // Check Header Name (Aditi Rao)
-        await expect(page.locator('#bio-data-content h1')).toHaveText('Aditi Rao');
+        await expect(page.locator('#bio-data-content h1').first()).toHaveText('Aditi Rao');
         // Check God Icon/Text
-        await expect(page.locator('#bio-data-content')).toContainText('Ganeshaya Namah');
+        await expect(page.locator('#bio-data-content').first()).toContainText('Ganeshaya Namah');
         // Check Sibling
-        await expect(page.locator('#bio-data-content')).toContainText('Brother (Unmarried) - Doctor');
+        await expect(page.locator('#bio-data-content').first()).toContainText('Brother (Unmarried) - Doctor');
         // Check Custom Field (in Personal section? No, Section default was Personal Details)
         // It should appear in Personal Details section
-        await expect(page.locator('#bio-data-content')).toContainText('Diet');
+        await expect(page.locator('#bio-data-content').first()).toContainText('Diet');
 
         // Theme Switch to Divine
         await page.click('button:has-text("Divine")');
-        await expect(page.locator('#bio-data-content')).toHaveClass(/theme-divine/);
+        await expect(page.locator('#bio-data-content').first()).toHaveClass(/theme-divine/);
     });
 
 });

@@ -37,11 +37,11 @@ const ThemeSelector = () => {
 const Section = ({ title, children, isEmpty }) => {
     if (isEmpty) return null;
     return (
-        <section className="mb-4 break-inside-avoid">
-            <h3 className="text-[var(--primary)] font-bold mb-2 uppercase text-xs tracking-wider border-b border-dashed border-[var(--border-color)] pb-1">
+        <section className="mb-2 break-inside-avoid">
+            <h3 className="text-[var(--primary)] font-bold mb-2 uppercase text-[10px] tracking-wider border-b border-dashed border-[var(--border-color)] pb-1">
                 {title}
             </h3>
-            <div className="grid grid-cols-[140px_1fr] gap-y-2 text-sm text-left">
+            <div className="grid grid-cols-[140px_1fr] gap-y-1 text-xs text-left">
                 {children}
             </div>
         </section>
@@ -89,12 +89,16 @@ const BioDataPreview = ({ hideControls = false }) => {
             const canvasHeight = canvas.height;
             const canvasAspectRatio = canvasWidth / canvasHeight;
 
-            let imgWidth = pdfWidth;
-            let imgHeight = imgWidth / canvasAspectRatio;
+            const pdfAspectRatio = pdfWidth / pdfHeight;
 
-            // If the image height is still greater than the PDF height,
-            // scale it down to fit the height and adjust the width proportionally.
-            if (imgHeight > pdfHeight) {
+            let imgWidth, imgHeight;
+
+            if (canvasAspectRatio > pdfAspectRatio) {
+                // Canvas is wider than PDF page
+                imgWidth = pdfWidth;
+                imgHeight = imgWidth / canvasAspectRatio;
+            } else {
+                // Canvas is taller than or same aspect ratio as PDF page
                 imgHeight = pdfHeight;
                 imgWidth = imgHeight * canvasAspectRatio;
             }
@@ -121,6 +125,7 @@ const BioDataPreview = ({ hideControls = false }) => {
         return siblings.map(s => {
             let str = `${s.relation} (${s.maritalStatus})`;
             if (s.name) str += ` - ${s.name}`;
+            if (s.occupation) str += ` - ${s.occupation}`;
             return str;
         }).join(', ');
     };
@@ -183,24 +188,24 @@ const BioDataPreview = ({ hideControls = false }) => {
                     }}
                 >
                     {/* Header */}
-                    <div className="text-center mb-10 pb-6 border-b-2 border-[var(--primary)] relative">
+                    <div className="text-center mb-6 pb-6 border-b-2 border-[var(--primary)] relative">
                         {/* Image Rendering */}
                         {formData.profileImage && (
-                            <div className="w-32 h-32 mx-auto mb-4 rounded-full border-4 border-[var(--primary)] overflow-hidden shadow-lg">
+                            <div className="w-28 h-28 mx-auto mb-4 rounded-full border-4 border-[var(--primary)] overflow-hidden shadow-lg">
                                 <img src={formData.profileImage} alt="Profile" className="w-full h-full object-cover" />
                             </div>
                         )}
 
-                        <h1 className="text-4xl font-bold uppercase tracking-widest text-[var(--primary)] mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
+                        <h1 className="text-3xl font-bold uppercase tracking-widest text-[var(--primary)] mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
                             {formData.fullName || 'Marriage Bio-Data'}
                         </h1>
-                        <p className="text-[var(--text-muted)] italic text-lg flex items-center justify-center gap-2">
+                        <p className="text-[var(--text-muted)] italic text-base flex items-center justify-center gap-2">
                             <span className="text-2xl text-[var(--primary)]">🕉️</span> || Ganeshaya Namah || <span className="text-2xl text-[var(--primary)]">🕉️</span>
                         </p>
                     </div>
 
                     {/* Content Grid */}
-                    <div className="space-y-4">
+                    <div className="space-y-2">
                         {/* Personal Section */}
                         <Section title="Personal Details" isEmpty={!hasData([formData.fullName, formData.dateOfBirth, formData.height])}>
                             <Row label="Full Name" value={formData.fullName} />
@@ -254,7 +259,7 @@ const BioDataPreview = ({ hideControls = false }) => {
 
                     </div>
 
-                    <div className="mt-8 text-center text-xs text-[var(--text-muted)] italic border-t border-[var(--border-color)] pt-4">
+                    <div className="mt-4 text-center text-xs text-[var(--text-muted)] italic border-t border-[var(--border-color)] pt-4">
                         Family & Friends Expect Your Presence.
                     </div>
                 </div>
