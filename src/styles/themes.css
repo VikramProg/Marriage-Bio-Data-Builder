@@ -1,0 +1,59 @@
+:root {
+  /* Standard Theme (Default) */
+  --bg-color: #f8fafc;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --border-color: #e2e8f0;
+  --card-bg: #ffffff;
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --radius: 0.5rem;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* Classic Theme (Elegant, Wedding-like) */
+[data-theme='classic'] {
+  --bg-color: #fdfbf7;
+  --text-main: #4a4036;
+  --text-muted: #8c7b6c;
+  --primary: #d4af37; /* Gold */
+  --primary-hover: #b5952f;
+  --border-color: #e6dfd5;
+  --card-bg: #ffffff;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
+  --radius: 2px;
+  --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05);
+}
+
+/* Modern Theme (Dark/Bold) */
+[data-theme='modern'] {
+  --bg-color: #111827;
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --primary: #ec4899; /* Pink/Rose */
+  --primary-hover: #db2777;
+  --border-color: #374151;
+  --card-bg: #1f2937;
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  --radius: 1rem;
+  --shadow: 0 0 20px rgb(0 0 0 / 0.3);
+}
+
+/* Retro Theme (Vintage Paper / 90s) */
+[data-theme='retro'] {
+  --bg-color: #f0e6d2;
+  --text-main: #2c241b;
+  --text-muted: #5d4e3c;
+  --primary: #b95c32; /* Rust */
+  --primary-hover: #9a4a25;
+  --border-color: #d4c5a9;
+  --card-bg: #f9f4e6;
+  --font-heading: 'Courier Prime', monospace;
+  --font-body: 'Courier Prime', monospace;
+  --radius: 0;
+  --shadow: 4px 4px 0px rgba(0,0,0,0.2);
+}

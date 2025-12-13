@@ -1,0 +1,181 @@
+/* Traditional Theme (Red/Gold) */
+.theme-traditional {
+    background-color: #fffaf0;
+    /* Cream background */
+    border: 8px double #a4161a;
+    /* Dark Red border */
+    position: relative;
+    box-shadow:
+        inset 0 0 0 4px #e5e5e5,
+        inset 0 0 20px rgba(164, 22, 26, 0.1);
+}
+
+.theme-traditional::before {
+    /* Corner Ornaments (CSS pseudo-element approximation) */
+    content: "ॐ";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: #a4161a;
+    font-weight: bold;
+}
+
+.theme-traditional h1 {
+    color: #a4161a !important;
+    font-family: 'Playfair Display', serif !important;
+    border-bottom: 2px solid #d4af37;
+    /* Gold */
+    padding-bottom: 10px;
+}
+
+.theme-traditional h3 {
+    color: #d4af37 !important;
+    /* Gold headings */
+    border-bottom: 1px solid #a4161a;
+}
+
+.theme-traditional .text-\[var\(--text-muted\)\] {
+    color: #5c4033 !important;
+    /* Brownish text for labels */
+}
+
+/* Floral Theme (Pink/Elegant) */
+.theme-floral {
+    background: linear-gradient(135deg, #fff0f5 0%, #fff 100%);
+    border: 1px solid #ffb7b2;
+    position: relative;
+}
+
+.theme-floral::after {
+    /* Subtle background pattern */
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(#ffb7b2 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+}
+
+.theme-floral h1 {
+    color: #db2777 !important;
+    /* Pink-600 */
+    font-family: 'Outfit', sans-serif !important;
+}
+
+.theme-floral h3 {
+    color: #db2777 !important;
+    border-bottom: 2px dotted #ffb7b2;
+}
+
+/* Royal Theme (Purple/Gold) */
+.theme-royal {
+    background: radial-gradient(circle at center, #fbf7ff 0%, #f3e5f5 100%);
+    border: 4px solid #4a148c;
+    /* Deep Purple */
+    box-shadow: 0 0 0 4px #ffd700 inset;
+    /* Gold Inset */
+}
+
+.theme-royal h1 {
+    color: #4a148c !important;
+    text-transform: uppercase;
+    font-family: 'Playfair Display', serif !important;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #ffd700;
+}
+
+.theme-royal h3 {
+    color: #6a1b9a !important;
+    border-bottom: 1px solid #ffd700;
+}
+
+/* Elegant Theme (Minimalist) */
+.theme-elegant {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: none;
+}
+
+.theme-elegant h1 {
+    color: #333 !important;
+    font-weight: 300 !important;
+    font-family: 'Lato', sans-serif !important;
+    letter-spacing: 4px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.theme-elegant h3 {
+    color: #555 !important;
+    font-size: 0.8rem !important;
+    background-color: #f9f9f9;
+    padding: 5px 10px;
+    border-bottom: none;
+}
+
+/* Divine Theme (Saffron/Om) */
+.theme-divine {
+    background-color: #fff8e1;
+    /* Light Saffron/Cream */
+    border: 5px solid #ff9800;
+    /* Saffron Orange */
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.2);
+    position: relative;
+    border-radius: 12px;
+}
+
+.theme-divine::before {
+    /* Om Symbol Background (Watermark style) */
+    content: "ॐ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 300px;
+    color: #ff9800;
+    opacity: 0.05;
+    pointer-events: none;
+    font-family: serif;
+}
+
+.theme-divine h1 {
+    color: #e65100 !important;
+    /* Dark Orange */
+    font-family: 'Poppins', sans-serif !important;
+    border-bottom: 2px solid #ff9800;
+}
+
+.theme-divine h3 {
+    color: #bf360c !important;
+    /* Deep Red-Orange */
+    border-bottom: 1px dashed #ff9800;
+    background-color: #fff3e0;
+}
+
+
+/* Classic Hindu (Haldi Kumkum) */
+.theme-classic-hindu {
+    background-color: #ffffff;
+    border: 8px solid #fbc02d;
+    /* Turmeric Yellow */
+    outline: 2px solid #d32f2f;
+    /* Kumkum Red */
+    outline-offset: -12px;
+}
+
+.theme-classic-hindu h1 {
+    color: #d32f2f !important;
+    text-transform: uppercase;
+    border-bottom: 3px double #fbc02d;
+}
+
+.theme-classic-hindu h3 {
+    color: #c62828 !important;
+    background-color: #fffde7;
+    /* Light Yellow */
+    border-left: 4px solid #fbc02d;
+    padding-left: 10px;
+}
