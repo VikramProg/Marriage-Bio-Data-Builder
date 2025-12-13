@@ -70,9 +70,9 @@ const BioDataPreview = ({ hideControls = false }) => {
 
         try {
             const canvas = await html2canvas(element, {
-                scale: 2,
+                scale: 2, // Higher scale for better quality
                 useCORS: true,
-                backgroundColor: null
+                backgroundColor: '#ffffff' // Set a solid background to avoid transparency issues
             });
 
             const imgData = canvas.toDataURL('image/png');
@@ -82,27 +82,32 @@ const BioDataPreview = ({ hideControls = false }) => {
                 format: 'a4'
             });
 
-            const imgWidth = 210;
-            const pageHeight = 297;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
 
-            let heightLeft = imgHeight;
-            let position = 0;
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+            const canvasAspectRatio = canvasWidth / canvasHeight;
 
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
+            let imgWidth = pdfWidth;
+            let imgHeight = imgWidth / canvasAspectRatio;
 
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
+            // If the image height is still greater than the PDF height,
+            // scale it down to fit the height and adjust the width proportionally.
+            if (imgHeight > pdfHeight) {
+                imgHeight = pdfHeight;
+                imgWidth = imgHeight * canvasAspectRatio;
             }
 
+            // Center the image on the page
+            const xOffset = (pdfWidth - imgWidth) / 2;
+            const yOffset = (pdfHeight - imgHeight) / 2;
+
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, imgWidth, imgHeight);
             pdf.save(`${formData.fullName || 'BioData'}_MarriageBioData.pdf`);
         } catch (err) {
-            console.error(err);
-            alert("Failed to generate PDF");
+            console.error("Error generating PDF:", err);
+            alert("Failed to generate PDF. Please try again.");
         }
         setIsGenerating(false);
     };
