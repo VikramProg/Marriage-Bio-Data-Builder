@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import { useBioData } from '../../context/BioDataContext';
 import BioDataPreview from '../Preview/BioDataPreview';
 import { Download, Edit2, Check } from 'lucide-react';
-import html2canvas from 'html2canvas'; // Import for manual handling if needed, but Preview has logic? 
-// Wait, Implementation said DownloadButton inside Preview, but FinalReview also has it.
+import { useReactToPrint } from 'react-to-print';
+import PrintScaler from '../Preview/PrintScaler';
 // Let's check BioDataPreview. It has handleDownload.
 // Actually, let's keep BioDataPreview as the display, and controls here?
 // The previous implementation had BioDataPreview handle its own download with a prop `hideControls={true}`.
@@ -21,39 +21,33 @@ const FinalReview = ({ onEdit }) => {
     // Let's let BioDataPreview handle the "Print/Download" logic if it exposes it, or just use a wrapper.
     // Actually, BioDataPreview likely has the id="bio-data-content". We can trigger download here.
 
-    const handleDownload = async () => {
-        // Target the HIDDEN print container, not the visible scaled one
-        const element = document.getElementById('bio-data-print-source');
-        if (!element) return;
+    // Ref for the content we want to print
+    const printComponentRef = useRef();
 
-        try {
-            const canvas = await html2canvas(element, {
-                scale: 3, // High quality
-                useCORS: true,
-                logging: false,
-                width: 794, // 210mm @ 96 DPI
-                height: 1123, // 297mm @ 96 DPI
-                windowWidth: 1000,
-            });
-            const imgWidth = 210;
-            const pageHeight = 297;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
-            let heightLeft = imgHeight;
-            let position = 0;
-
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
+    const handlePrint = useReactToPrint({
+        contentRef: printComponentRef,
+        documentTitle: state.formData.fullName || 'BioData',
+        pageStyle: `
+            @page {
+                size: A4;
+                margin: 0;
             }
-            pdf.save(`${state.formData.fullName || 'BioData'}.pdf`);
-        } catch (err) {
-            console.error(err);
-            alert("Error generating PDF");
+            @media print {
+                body {
+                    -webkit-print-color-adjust: exact;
+                }
+                html, body {
+                    height: auto !important;
+                    overflow: visible !important;
+                    background: white;
+                }
+            }
+        `,
+    });
+
+    const handleDownload = () => {
+        if (printComponentRef.current) {
+            handlePrint();
         }
     };
 
@@ -158,7 +152,8 @@ const FinalReview = ({ onEdit }) => {
             </div>
             {/* HIDDEN PRINT CONTAINER - Strictly for PDF Generation (A4 Size) */}
             <div className="fixed left-[-9999px] top-[-9999px]">
-                <div id="bio-data-print-source" style={{ width: '210mm', minHeight: '297mm', background: 'white' }}>
+                <div ref={printComponentRef} style={{ width: '210mm', minHeight: '297mm', background: 'white' }}>
+                    <PrintScaler />
                     <BioDataPreview hideControls={true} />
                 </div>
             </div>

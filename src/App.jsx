@@ -5,6 +5,7 @@ import MultiStepForm from './components/Wizard/MultiStepForm';
 import BioDataPreview from './components/Preview/BioDataPreview';
 import WelcomeScreen from './components/Home/WelcomeScreen';
 import FinalReview from './components/Wizard/FinalReview';
+import PrintScaler from './components/Preview/PrintScaler';
 import { Eye, X } from 'lucide-react'; // Palette removed if unused in main layout
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -14,7 +15,12 @@ const MainLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Handle theme switching on global scope
+  // Handle Title Update
+  React.useEffect(() => {
+    document.title = import.meta.env.VITE_APP_TITLE || 'Marriage Bio-Data';
+  }, []);
+
+  // Handle theme switching on global scope - Restores theme functionality
   React.useEffect(() => {
     document.body.setAttribute('data-theme', state.theme);
   }, [state.theme]);
@@ -31,12 +37,12 @@ const MainLayout = () => {
       animate={{ opacity: 1 }}
       className="min-h-screen flex flex-col items-center py-6 px-4 md:py-10 bg-[var(--bg-color)]/50 transition-colors duration-500"
     >
-      {/* Hide Header on Welcome Screen to keep it clean? Or keep it? Previous code had it. Let's keep it consistent. */}
-      {location.pathname !== '/' && (
+      {/* Hide Header on Welcome Screen and Print Screen */}
+      {location.pathname !== '/' && location.pathname !== '/print' && (
         <header className="w-full max-w-4xl mb-8 flex justify-between items-center px-2">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-blue-600 tracking-tight" onClick={handleBackHome} style={{ cursor: 'pointer' }}>
-              {state.formData.fullName || 'Marriage Bio-Data'}
+              {state.formData.fullName || import.meta.env.VITE_APP_HEADER_TITLE || 'Marriage Bio-Data'}
             </h1>
           </div>
 
@@ -79,6 +85,16 @@ const MainLayout = () => {
                   <FinalReview onEdit={handleEdit} onBackHome={handleBackHome} />
                 </motion.div>
               } />
+
+              {/* Dedicated Print Route */}
+              <Route path="/print" element={
+                <div className="w-full flex justify-center bg-white min-h-screen">
+                  <div className="w-[210mm]">
+                    <PrintScaler />
+                    <BioDataPreview hideControls={true} />
+                  </div>
+                </div>
+              } />
             </Routes>
           </AnimatePresence>
         </div>
@@ -118,9 +134,11 @@ const MainLayout = () => {
         )}
       </AnimatePresence>
 
-      <footer className="mt-12 text-center text-sm text-gray-400 pb-4">
-        <p>Made with ❤️ & Privacy. No data stored on server.</p>
-      </footer>
+      {location.pathname !== '/print' && (
+        <footer className="mt-12 text-center text-sm text-gray-400 pb-4 no-print">
+          <p>Made with ❤️ & Privacy. No data stored on server.</p>
+        </footer>
+      )}
     </motion.div>
   );
 };

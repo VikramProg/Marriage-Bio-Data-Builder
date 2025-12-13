@@ -37,8 +37,8 @@ const ThemeSelector = () => {
 const Section = ({ title, children, isEmpty }) => {
     if (isEmpty) return null;
     return (
-        <section className="mb-6 break-inside-avoid">
-            <h3 className="text-[var(--primary)] font-bold mb-3 uppercase text-xs tracking-wider border-b border-dashed border-[var(--border-color)] pb-1">
+        <section className="mb-4 break-inside-avoid">
+            <h3 className="text-[var(--primary)] font-bold mb-2 uppercase text-xs tracking-wider border-b border-dashed border-[var(--border-color)] pb-1">
                 {title}
             </h3>
             <div className="grid grid-cols-[140px_1fr] gap-y-2 text-sm text-left">
@@ -249,7 +249,7 @@ const BioDataPreview = ({ hideControls = false }) => {
 
                     </div>
 
-                    <div className="mt-16 text-center text-xs text-[var(--text-muted)] italic border-t border-[var(--border-color)] pt-4">
+                    <div className="mt-8 text-center text-xs text-[var(--text-muted)] italic border-t border-[var(--border-color)] pt-4">
                         Family & Friends Expect Your Presence.
                     </div>
                 </div>

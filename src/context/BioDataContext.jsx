@@ -135,7 +135,20 @@ const bioDataReducer = (state, action) => {
 const BioDataContext = createContext();
 
 export const BioDataProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(bioDataReducer, initialState);
+  // Initialize from localStorage if available
+  const [state, dispatch] = useReducer(bioDataReducer, initialState, (defaultState) => {
+    try {
+      const stored = localStorage.getItem('bioDataState');
+      return stored ? JSON.parse(stored) : defaultState;
+    } catch (e) {
+      return defaultState;
+    }
+  });
+
+  // Save to localStorage whenever state changes
+  React.useEffect(() => {
+    localStorage.setItem('bioDataState', JSON.stringify(state));
+  }, [state]);
 
   return (
     <BioDataContext.Provider value={{ state, dispatch, TYPES }}>
