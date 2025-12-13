@@ -42,7 +42,7 @@ const MainLayout = () => {
         <header className="w-full max-w-4xl mb-8 flex justify-between items-center px-2">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-blue-600 tracking-tight" onClick={handleBackHome} style={{ cursor: 'pointer' }}>
-              {state.formData.fullName || import.meta.env.VITE_APP_HEADER_TITLE || 'Marriage Bio-Data'}
+              {import.meta.env.VITE_APP_HEADER_TITLE || 'Marriage Bio-Data Gen'}
             </h1>
           </div>
 
