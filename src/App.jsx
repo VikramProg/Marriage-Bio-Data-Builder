@@ -38,7 +38,7 @@ const MainLayout = () => {
           <div onClick={handleBackHome} style={{ cursor: 'pointer' }} className="flex items-center gap-3">
             <img src="/logo.svg" alt="logo" className="h-8 w-8" />
             <h1 className="text-xl md:text-2xl font-bold text-gray-800 tracking-tighter">
-              {import.meta.env.VITE_APP_HEADER_TITLE || 'Marriage Bio-Data Gen'}
+              SaathJanam Bio Data Builder
             </h1>
           </div>
 
