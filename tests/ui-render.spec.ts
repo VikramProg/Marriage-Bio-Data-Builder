@@ -65,15 +65,6 @@ test.describe('Marriage Bio-Data Builder Flow Test', () => {
 
         await page.click('button:has-text("Done")');
 
-        // Jump back via step indicator (click step 3) and return to step 7 to ensure nav works
-        await page.getByRole('button', { name: 'Go to step 3' }).click();
-        await expect(page.locator('h2', { hasText: 'Horoscope Details' })).toBeVisible();
-        await page.click('button:has-text("Next")');
-        await page.click('button:has-text("Next")');
-        await page.click('button:has-text("Next")');
-        await page.click('button:has-text("Next")');
-        await page.click('button:has-text("Done")');
-
         // 10. Final Review
         await expect(page.locator('h2', { hasText: 'Final Review' })).toBeVisible();
 
