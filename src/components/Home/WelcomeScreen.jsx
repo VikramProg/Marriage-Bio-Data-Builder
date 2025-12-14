@@ -11,13 +11,16 @@ const WelcomeScreen = ({ onStart }) => {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="mb-8 relative"
             >
-                <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Heart className="text-red-500 w-12 h-12 fill-current animate-pulse" />
+                <div className="w-28 h-28 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 relative overflow-hidden">
+                    <img src="/logo.svg" alt="SaathJanam logo" className="absolute inset-0 w-full h-full object-contain p-4" />
+                    <Heart className="text-red-500 w-12 h-12 fill-current animate-pulse opacity-40" />
                 </div>
                 <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
-                    Create Your Perfect <br />
-                    <span className="text-blue-600">Marriage Bio-Data</span>
+                    SaathJanam Bio Data Builder
                 </h1>
+                <p className="text-lg md:text-xl text-blue-600 font-semibold mt-2">
+                    Create your perfect marriage bio-data in minutes
+                </p>
             </motion.div>
 
             <motion.p
@@ -27,7 +30,7 @@ const WelcomeScreen = ({ onStart }) => {
                 className="text-lg text-gray-600 max-w-xl mb-10"
             >
                 Design a beautiful, professional bio-data in minutes.
-                Choose from stunning templates, customize details, and download for free.
+                Choose from stunning templates, customize details, and export high-quality images for free.
                 <span className="block mt-2 font-medium text-gray-800">No Signup. No Ads. 100% Privacy.</span>
             </motion.p>
 
@@ -59,12 +62,12 @@ const WelcomeScreen = ({ onStart }) => {
                     <span>Client-side only</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <span className="font-bold text-gray-800 text-lg">PDF</span>
+                    <span className="font-bold text-gray-800 text-lg">Image</span>
                     <span>HD Export</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <span className="font-bold text-gray-800 text-lg">4+</span>
-                    <span>Premium Themes</span>
+                    <span className="font-bold text-gray-800 text-lg">10+</span>
+                    <span>Templates (adding more)</span>
                 </div>
             </motion.div>
         </div>
