@@ -156,7 +156,7 @@ const BioDataPreview = ({ hideControls = false }) => {
                             <Row
                                 key={`custom-${idx}`}
                                 label={field.label}
-                                value={<a href={field.value} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{field.label || field.value}</a>}
+                                value={<a href={field.value} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{field.linkText || field.value}</a>}
                             />
                         );
                     }
