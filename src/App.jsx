@@ -17,7 +17,7 @@ const MainLayout = () => {
 
   // Handle Title Update
   React.useEffect(() => {
-    document.title = import.meta.env.VITE_APP_TITLE || 'Marriage Bio-Data';
+    document.title = 'Marriage Bio-Data Gen';
   }, []);
 
   // Handle Navigation Callbacks
