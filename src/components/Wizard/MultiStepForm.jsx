@@ -59,7 +59,11 @@ const MultiStepForm = ({ onBackHome, onComplete }) => {
                         <RefreshCcw size={12} /> Reset
                     </button>
                 </div>
-                <StepIndicator currentStep={step} totalSteps={TOTAL_STEPS} />
+                <StepIndicator
+                    currentStep={step}
+                    totalSteps={TOTAL_STEPS}
+                    onStepSelect={(target) => dispatch({ type: TYPES.SET_STEP, payload: target })}
+                />
             </div>
 
             <div className="flex-grow relative">
