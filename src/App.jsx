@@ -53,10 +53,10 @@ const MainLayout = () => {
                 <span className="hidden sm:inline">Preview</span>
               </button>
             )}
-            <a href={import.meta.env.VITE_TWITTER_URL} target="_blank" rel="noopener noreferrer" title="Twitter Profile" className="p-1">
+            <a href="https://x.com/Eng_Vik_" target="_blank" rel="noopener noreferrer" title="Twitter Profile" className="p-1">
               <Twitter size={18} className="text-gray-500 hover:text-blue-500 transition-colors" />
             </a>
-            <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noopener noreferrer" title="GitHub Repository" className="p-1">
+            <a href="https://github.com/VikramProg/Marriage-Bio-Data-Builder" target="_blank" rel="noopener noreferrer" title="GitHub Repository" className="p-1">
               <Github size={18} className="text-gray-500 hover:text-gray-800 transition-colors" />
             </a>
           </div>
