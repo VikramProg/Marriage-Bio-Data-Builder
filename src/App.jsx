@@ -36,7 +36,7 @@ const MainLayout = () => {
       {location.pathname !== '/' && location.pathname !== '/print' && (
         <header className="w-full max-w-4xl mb-8 flex justify-between items-center px-2 py-2 md:py-3">
           <div onClick={handleBackHome} style={{ cursor: 'pointer' }} className="flex items-center gap-3">
-            <img src="/logo.svg" alt="logo" className="h-8 w-8" />
+            <img src={`${import.meta.env.BASE_URL || '/'}logo.svg`} alt="logo" className="h-8 w-8" />
             <h1 className="text-lg md:text-2xl font-bold text-gray-800 tracking-tighter leading-snug">
               SaathJanam Bio Data Builder
             </h1>
@@ -152,9 +152,10 @@ const MainLayout = () => {
 };
 
 function App() {
+  const base = import.meta.env.BASE_URL || '/';
   return (
     <BioDataProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={base}>
         <MainLayout />
       </BrowserRouter>
     </BioDataProvider>

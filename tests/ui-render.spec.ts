@@ -5,7 +5,7 @@ test.describe('Marriage Bio-Data Builder Flow Test', () => {
     test('should complete the full bio-data creation flow', async ({ page }) => {
         // 1. Visit App
         await page.goto('http://localhost:5173');
-        await expect(page).toHaveTitle(/MatchMaker/);
+        await expect(page).toHaveTitle(/SathJanam/i);
 
         // 2. Welcome Screen -> Start
         await page.click('button:has-text("Create My Bio-Data")');
@@ -65,6 +65,15 @@ test.describe('Marriage Bio-Data Builder Flow Test', () => {
 
         await page.click('button:has-text("Done")');
 
+        // Jump back via step indicator (click step 3) and return to step 7 to ensure nav works
+        await page.getByRole('button', { name: 'Go to step 3' }).click();
+        await expect(page.locator('h2', { hasText: 'Horoscope Details' })).toBeVisible();
+        await page.click('button:has-text("Next")');
+        await page.click('button:has-text("Next")');
+        await page.click('button:has-text("Next")');
+        await page.click('button:has-text("Next")');
+        await page.click('button:has-text("Done")');
+
         // 10. Final Review
         await expect(page.locator('h2', { hasText: 'Final Review' })).toBeVisible();
 
@@ -78,8 +87,8 @@ test.describe('Marriage Bio-Data Builder Flow Test', () => {
         // It should appear in Personal Details section
         await expect(page.locator('#bio-data-content').first()).toContainText('Diet');
 
-        // Theme Switch to Divine
-        await page.click('button:has-text("Divine")');
+        // Theme Switch to Divine (template circles use title)
+        await page.getByTitle('Divine').click();
         await expect(page.locator('#bio-data-content').first()).toHaveClass(/theme-divine/);
     });
 
