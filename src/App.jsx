@@ -130,9 +130,9 @@ const MainLayout = () => {
                 </button>
               </div>
               <div className="flex-1 overflow-auto p-4 md:p-6 bg-gray-100/50">
-                {/* Slight scale-down on mobile to avoid edge cropping */}
-                <div className="w-full overflow-auto">
-                  <div className="origin-top-left scale-[0.9] md:scale-100">
+                {/* Slight scale-down on mobile to avoid edge cropping; left-align so full width is reachable */}
+                <div className="w-full overflow-auto flex justify-start md:justify-center">
+                  <div className="inline-block origin-top-left scale-[0.8] md:scale-100">
                     <BioDataPreview hideControls={true} />
                   </div>
                 </div>
