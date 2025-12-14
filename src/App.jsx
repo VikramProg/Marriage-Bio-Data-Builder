@@ -17,7 +17,7 @@ const MainLayout = () => {
 
   // Handle Title Update
   React.useEffect(() => {
-    document.title = 'Marriage Bio-Data Gen';
+    document.title = 'SathJanam';
   }, []);
 
   // Handle Navigation Callbacks
