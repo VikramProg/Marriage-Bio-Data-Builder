@@ -195,6 +195,7 @@ const BioDataPreview = ({ hideControls = false }) => {
                 <div
                     ref={printRef}
                     id="bio-data-content"
+                    data-theme={theme}
                     className={`
                         w-[210mm] min-h-[297mm] bg-white shadow-2xl p-[15mm]
                         theme-${theme}
