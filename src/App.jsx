@@ -6,7 +6,7 @@ import BioDataPreview from './components/Preview/BioDataPreview';
 import WelcomeScreen from './components/Home/WelcomeScreen';
 import FinalReview from './components/Wizard/FinalReview';
 import PrintScaler from './components/Preview/PrintScaler';
-import { Eye, X } from 'lucide-react'; // Palette removed if unused in main layout
+import { Eye, X, Github, Twitter } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const MainLayout = () => {
@@ -17,13 +17,8 @@ const MainLayout = () => {
 
   // Handle Title Update
   React.useEffect(() => {
-    document.title = import.meta.env.VITE_APP_TITLE || 'Marriage Bio-Data';
+    document.title = 'SathJanam';
   }, []);
-
-  // Handle theme switching on global scope - Restores theme functionality
-  React.useEffect(() => {
-    document.body.setAttribute('data-theme', state.theme);
-  }, [state.theme]);
 
   // Handle Navigation Callbacks
   const handleStart = () => navigate('/create');
@@ -35,33 +30,44 @@ const MainLayout = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen flex flex-col items-center py-6 px-4 md:py-10 bg-[var(--bg-color)]/50 transition-colors duration-500"
+      className="min-h-screen flex flex-col items-center py-6 px-4 md:py-10 transition-colors duration-500"
     >
       {/* Hide Header on Welcome Screen and Print Screen */}
       {location.pathname !== '/' && location.pathname !== '/print' && (
-        <header className="w-full max-w-4xl mb-8 flex justify-between items-center px-2">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-blue-600 tracking-tight" onClick={handleBackHome} style={{ cursor: 'pointer' }}>
-              {import.meta.env.VITE_APP_HEADER_TITLE || 'Marriage Bio-Data Gen'}
+        <header className="w-full max-w-4xl mb-8 flex justify-between items-center px-2 py-2 md:py-3">
+          <div onClick={handleBackHome} style={{ cursor: 'pointer' }} className="flex items-center gap-3">
+            <img src="/logo.svg" alt="logo" className="h-8 w-8" />
+            <h1 className="text-lg md:text-2xl font-bold text-gray-800 tracking-tighter leading-snug">
+              SaathJanam Bio Data Builder
             </h1>
           </div>
 
-          {/* Preview Button (Opens Modal) - Only show in Wizard */}
-          {location.pathname === '/create' && (
-            <button
-              onClick={() => setShowPreviewModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-white/50 hover:bg-white text-blue-700 rounded-full text-sm font-bold border border-blue-100 shadow-sm transition-all"
-            >
-              <Eye size={18} /> Preview
-            </button>
-          )}
+          <div className="flex items-center gap-3 md:gap-4">
+            {/* Preview Button (Opens Modal) - Only show in Wizard */}
+            {location.pathname === '/create' && (
+              <button
+                onClick={() => setShowPreviewModal(true)}
+                className="flex items-center gap-2 px-3 py-2 bg-white/50 hover:bg-white text-blue-700 rounded-full text-sm font-bold border border-blue-100 shadow-sm transition-all"
+              >
+                <Eye size={18} />
+                <span className="hidden sm:inline">Preview</span>
+              </button>
+            )}
+            <a href={import.meta.env.VITE_TWITTER_URL} target="_blank" rel="noopener noreferrer" title="Twitter Profile" className="p-1">
+              <Twitter size={18} className="text-gray-500 hover:text-blue-500 transition-colors" />
+            </a>
+            <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noopener noreferrer" title="GitHub Repository" className="p-1">
+              <Github size={18} className="text-gray-500 hover:text-gray-800 transition-colors" />
+            </a>
+          </div>
         </header>
       )}
 
+      {location.pathname !== '/' && location.pathname !== '/print' && (
+        <hr className="w-full max-w-4xl border-t border-gray-200 mb-8" />
+      )}
+
       <main className={`w-full relative transition-all duration-500 ${location.pathname === '/review' ? 'max-w-7xl' : 'max-w-4xl'}`}>
-        {/* max-w-4xl to accommodate FinalReview if needed, but Wizard uses max-w-2xl inside wrapper. 
-            FinalReview needs full width. 
-            Let's adjust max-w based on route? */}
         <div className={`
             ${location.pathname === '/review' ? 'w-full' : 'max-w-2xl mx-auto'}
         `}>
@@ -123,10 +129,12 @@ const MainLayout = () => {
                   <X size={20} />
                 </button>
               </div>
-              <div className="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-100/50 flex justify-center items-start">
-                {/* Scale down slightly on mobile so it fits better */}
-                <div className="transform scale-[0.85] md:scale-100 origin-top">
-                  <BioDataPreview hideControls={true} />
+              <div className="flex-1 overflow-auto p-4 md:p-6 bg-gray-100/50 flex items-start justify-start md:justify-center">
+                {/* Slight scale-down on mobile to avoid edge cropping; left-align so full width is reachable */}
+                <div className="w-full overflow-auto flex justify-start md:justify-center">
+                  <div className="inline-block origin-top-left scale-[0.8] md:scale-100">
+                    <BioDataPreview hideControls={true} />
+                  </div>
                 </div>
               </div>
             </motion.div>

@@ -136,14 +136,32 @@ const BioDataPreview = ({ hideControls = false }) => {
         return fields.filter(f => f.section === sectionName);
     };
 
+    const isUrl = (string) => {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    };
+
     const CustomRows = ({ section }) => {
         const fields = getCustomFields(section);
         if (fields.length === 0) return null;
         return (
             <>
-                {fields.map((field, idx) => (
-                    <Row key={`custom-${idx}`} label={field.label} value={field.value} />
-                ))}
+                {fields.map((field, idx) => {
+                    if (isUrl(field.value)) {
+                        return (
+                            <Row
+                                key={`custom-${idx}`}
+                                label={field.label}
+                                value={<a href={field.value} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{field.linkText || field.value}</a>}
+                            />
+                        );
+                    }
+                    return <Row key={`custom-${idx}`} label={field.label} value={field.value} />;
+                })}
             </>
         );
     };
@@ -177,6 +195,7 @@ const BioDataPreview = ({ hideControls = false }) => {
                 <div
                     ref={printRef}
                     id="bio-data-content"
+                    data-theme={theme}
                     className={`
                         w-[210mm] min-h-[297mm] bg-white shadow-2xl p-[15mm]
                         theme-${theme}
