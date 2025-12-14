@@ -129,10 +129,12 @@ const MainLayout = () => {
                   <X size={20} />
                 </button>
               </div>
-              <div className="flex-1 overflow-auto p-4 md:p-6 bg-gray-100/50 flex justify-center items-start">
-                {/* Scale down slightly on mobile so it fits better */}
-                <div className="transform scale-[0.85] md:scale-100 origin-top">
-                  <BioDataPreview hideControls={true} />
+              <div className="flex-1 overflow-auto p-4 md:p-6 bg-gray-100/50">
+                {/* Slight scale-down on mobile to avoid edge cropping */}
+                <div className="w-full overflow-auto">
+                  <div className="origin-top-left scale-[0.9] md:scale-100">
+                    <BioDataPreview hideControls={true} />
+                  </div>
                 </div>
               </div>
             </motion.div>

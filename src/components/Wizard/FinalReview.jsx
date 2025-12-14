@@ -10,6 +10,7 @@ const FinalReview = ({ onEdit }) => {
     const { theme } = state;
     const printComponentRef = useRef();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     const handleDownloadClick = () => {
         setIsModalOpen(true);
@@ -17,6 +18,13 @@ const FinalReview = ({ onEdit }) => {
 
     const handleExport = (format) => {
         if (printComponentRef.current) {
+            const wrapper = printComponentRef.current.parentElement;
+            const prevTransform = wrapper?.style.transform;
+            const prevOrigin = wrapper?.style.transformOrigin;
+            if (wrapper) {
+                wrapper.style.transform = 'scale(1)';
+                wrapper.style.transformOrigin = 'top left';
+            }
             html2canvas(printComponentRef.current, {
                 scale: 3, // Higher scale for better quality
                 useCORS: true,
@@ -26,6 +34,11 @@ const FinalReview = ({ onEdit }) => {
                 link.download = `biodata.${format}`;
                 link.href = canvas.toDataURL(`image/${format}`, 1.0);
                 link.click();
+            }).finally(() => {
+                if (wrapper) {
+                    wrapper.style.transform = prevTransform || '';
+                    wrapper.style.transformOrigin = prevOrigin || '';
+                }
             });
         }
         setIsModalOpen(false);
@@ -38,11 +51,13 @@ const FinalReview = ({ onEdit }) => {
 
     React.useEffect(() => {
         const updateScale = () => {
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
             if (containerRef.current) {
                 const containerWidth = containerRef.current.offsetWidth;
                 const targetWidth = 794; // A4 width in pixels (approx) at 96 DPI (210mm)
-                const scaleWidth = (containerWidth - 40) / targetWidth;
-                const newScale = Math.min(Math.max(scaleWidth, 0.3), 1);
+                const scaleWidth = (containerWidth - 24) / targetWidth;
+                const newScale = mobile ? 1 : Math.min(Math.max(scaleWidth, 0.5), 1);
                 setScale(newScale);
             }
         };
@@ -50,7 +65,11 @@ const FinalReview = ({ onEdit }) => {
         const observer = new ResizeObserver(updateScale);
         if (containerRef.current) observer.observe(containerRef.current);
         updateScale();
-        return () => observer.disconnect();
+        window.addEventListener('resize', updateScale);
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('resize', updateScale);
+        };
     }, []);
 
     const themes = [
@@ -129,14 +148,14 @@ const FinalReview = ({ onEdit }) => {
             <div className="flex-grow flex flex-col md:flex-row gap-6 md:gap-8 overflow-visible">
                 <div
                     ref={containerRef}
-                    className="flex-grow overflow-auto bg-gray-100 p-3 md:p-4 rounded-xl border border-gray-200 shadow-inner flex justify-center items-start relative min-h-[500px]"
+                    className={`flex-grow overflow-auto ${isMobile ? 'bg-transparent p-0' : 'bg-gray-100 p-2 md:p-4'} rounded-xl border border-gray-200 shadow-inner flex justify-start md:justify-center items-start relative min-h-0 md:min-h-[500px]`}
                 >
                     <div
                         style={{
                             transform: `scale(${scale})`,
-                            transformOrigin: 'center top'
+                            transformOrigin: 'left top'
                         }}
-                        className="transition-transform duration-200 ease-out mt-2 md:mt-4 shadow-2xl"
+                        className={`transition-transform duration-200 ease-out mt-0 md:mt-2 shadow-2xl ${isMobile ? 'ml-0' : ''}`}
                     >
                          <div ref={printComponentRef} style={{ background: 'white' }}>
                             <BioDataPreview hideControls={true} />
