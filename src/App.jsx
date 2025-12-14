@@ -129,7 +129,7 @@ const MainLayout = () => {
                   <X size={20} />
                 </button>
               </div>
-              <div className="flex-1 overflow-auto p-4 md:p-6 bg-gray-100/50">
+              <div className="flex-1 overflow-auto p-4 md:p-6 bg-gray-100/50 flex items-start justify-start md:justify-center">
                 {/* Slight scale-down on mobile to avoid edge cropping; left-align so full width is reachable */}
                 <div className="w-full overflow-auto flex justify-start md:justify-center">
                   <div className="inline-block origin-top-left scale-[0.8] md:scale-100">
