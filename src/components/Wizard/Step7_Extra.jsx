@@ -4,21 +4,52 @@ import ModernInput from '../UI/ModernInput';
 import ModernSelect from '../UI/ModernSelect';
 import { motion } from 'framer-motion';
 import { Plus, Trash2, ListPlus } from 'lucide-react';
+import LinkModal from '../UI/LinkModal';
 
 const Step7_Extra = () => {
     const { state, dispatch, TYPES } = useBioData();
     const { formData } = state;
-    const [newField, setNewField] = useState({ section: 'Personal Details', label: '', value: '' });
+    const [newField, setNewField] = useState({ section: 'Personal Details', fieldName: '', fieldValue: '' });
+    const [showLinkModal, setShowLinkModal] = useState(false);
+    const [tempField, setTempField] = useState(null);
 
     const customFields = Array.isArray(formData.customFields) ? formData.customFields : [];
 
-    const handleAddField = (e) => {
-        e.preventDefault();
-        if (newField.label && newField.value) {
-            dispatch({ type: TYPES.ADD_CUSTOM_FIELD, payload: newField });
-            setNewField(prev => ({ ...prev, label: '', value: '' }));
+    const isUrl = (string) => {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            return false;
         }
     };
+
+    const handleAddField = (e) => {
+        e.preventDefault();
+        if (newField.fieldName) {
+            if (isUrl(newField.fieldValue)) {
+                setTempField(newField);
+                setShowLinkModal(true);
+            } else {
+                dispatch({ type: TYPES.ADD_CUSTOM_FIELD, payload: {label: newField.fieldName, value: newField.fieldValue, section: newField.section} });
+                setNewField({ section: 'Personal Details', fieldName: '', fieldValue: '' });
+            }
+        }
+    };
+
+    const handleAddLink = (linkName) => {
+        dispatch({ type: TYPES.ADD_CUSTOM_FIELD, payload: { label: linkName, value: tempField.fieldValue, section: tempField.section } });
+        setNewField({ section: 'Personal Details', fieldName: '', fieldValue: '' });
+        setShowLinkModal(false);
+        setTempField(null);
+    };
+
+    const handleCancelLink = () => {
+        dispatch({ type: TYPES.ADD_CUSTOM_FIELD, payload: { label: tempField.fieldValue, value: tempField.fieldValue, section: tempField.section } });
+        setNewField({ section: 'Personal Details', fieldName: '', fieldValue: '' });
+        setShowLinkModal(false);
+        setTempField(null);
+    }
 
     const handleRemoveField = (index) => {
         dispatch({ type: TYPES.REMOVE_CUSTOM_FIELD, payload: index });
@@ -50,9 +81,9 @@ const Step7_Extra = () => {
                     </div>
                     <div className="md:col-span-4">
                         <ModernInput
-                            label="Label"
-                            name="label"
-                            value={newField.label}
+                            label="Field Name"
+                            name="fieldName"
+                            value={newField.fieldName}
                             onChange={(name, val) => setNewField(p => ({ ...p, [name]: val }))}
                             placeholder="e.g. Diet"
                         />
@@ -60,16 +91,16 @@ const Step7_Extra = () => {
                     <div className="md:col-span-4 flex gap-2">
                         <div className="flex-grow">
                             <ModernInput
-                                label="Value"
-                                name="value"
-                                value={newField.value}
+                                label="Field Value"
+                                name="fieldValue"
+                                value={newField.fieldValue}
                                 onChange={(name, val) => setNewField(p => ({ ...p, [name]: val }))}
-                                placeholder="e.g. Vegetarian"
+                                placeholder="e.g. Vegetarian or a link"
                             />
                         </div>
                         <button
                             onClick={handleAddField}
-                            disabled={!newField.label || !newField.value}
+                            disabled={!newField.fieldName}
                             className="mb-[2px] h-[46px] w-[46px] flex items-center justify-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
                             title="Add Field"
                         >
@@ -113,6 +144,14 @@ const Step7_Extra = () => {
                     </motion.div>
                 ))}
             </div>
+
+            {showLinkModal && (
+                <LinkModal
+                    link={tempField.fieldValue}
+                    onAdd={handleAddLink}
+                    onCancel={handleCancelLink}
+                />
+            )}
 
         </motion.div>
     );
