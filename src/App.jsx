@@ -34,15 +34,15 @@ const MainLayout = () => {
     >
       {/* Hide Header on Welcome Screen and Print Screen */}
       {location.pathname !== '/' && location.pathname !== '/print' && (
-        <header className="w-full max-w-4xl mb-8 flex justify-between items-center px-2">
+        <header className="w-full max-w-4xl mb-8 flex justify-between items-center px-2 py-2 md:py-3">
           <div onClick={handleBackHome} style={{ cursor: 'pointer' }} className="flex items-center gap-3">
             <img src="/logo.svg" alt="logo" className="h-8 w-8" />
-            <h1 className="text-xl md:text-2xl font-bold text-gray-800 tracking-tighter">
+            <h1 className="text-lg md:text-2xl font-bold text-gray-800 tracking-tighter leading-snug">
               SaathJanam Bio Data Builder
             </h1>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
             {/* Preview Button (Opens Modal) - Only show in Wizard */}
             {location.pathname === '/create' && (
               <button
@@ -52,11 +52,11 @@ const MainLayout = () => {
                 <Eye size={18} /> Preview
               </button>
             )}
-            <a href={import.meta.env.VITE_TWITTER_URL} target="_blank" rel="noopener noreferrer" title="Twitter Profile">
-              <Twitter size={20} className="text-gray-500 hover:text-blue-500 transition-colors" />
+            <a href={import.meta.env.VITE_TWITTER_URL} target="_blank" rel="noopener noreferrer" title="Twitter Profile" className="p-1">
+              <Twitter size={18} className="text-gray-500 hover:text-blue-500 transition-colors" />
             </a>
-            <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noopener noreferrer" title="GitHub Repository">
-              <Github size={20} className="text-gray-500 hover:text-gray-800 transition-colors" />
+            <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noopener noreferrer" title="GitHub Repository" className="p-1">
+              <Github size={18} className="text-gray-500 hover:text-gray-800 transition-colors" />
             </a>
           </div>
         </header>
@@ -128,7 +128,7 @@ const MainLayout = () => {
                   <X size={20} />
                 </button>
               </div>
-              <div className="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-100/50 flex justify-center items-start">
+              <div className="flex-1 overflow-auto p-4 md:p-6 bg-gray-100/50 flex justify-center items-start">
                 {/* Scale down slightly on mobile so it fits better */}
                 <div className="transform scale-[0.85] md:scale-100 origin-top">
                   <BioDataPreview hideControls={true} />

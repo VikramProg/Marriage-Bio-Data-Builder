@@ -54,26 +54,26 @@ const FinalReview = ({ onEdit }) => {
     }, []);
 
     const themes = [
-        { id: 'standard', name: 'Standard', color: 'bg-blue-100' },
-        { id: 'classic', name: 'Classic', color: 'bg-yellow-100' },
-        { id: 'modern', name: 'Modern', color: 'bg-gray-800 text-white' },
-        { id: 'retro', name: 'Retro', color: 'bg-orange-100' },
-        { id: 'traditional', name: 'Traditional', color: 'bg-red-100' },
-        { id: 'floral', name: 'Floral', color: 'bg-pink-100' },
+        { id: 'standard', name: 'Standard', color: 'bg-blue-500' },
+        { id: 'classic', name: 'Classic', color: 'bg-yellow-400' },
+        { id: 'modern', name: 'Modern', color: 'bg-gray-900' },
+        { id: 'retro', name: 'Retro', color: 'bg-orange-500' },
+        { id: 'traditional', name: 'Traditional', color: 'bg-red-600' },
+        { id: 'floral', name: 'Floral', color: 'bg-pink-500' },
         { id: 'divine', name: 'Divine', color: 'bg-orange-300' },
-        { id: 'classic-hindu', name: 'Hindu', color: 'bg-yellow-400' },
-        { id: 'royal', name: 'Royal', color: 'bg-purple-300' },
-        { id: 'elegant', name: 'Elegant', color: 'bg-white border' },
+        { id: 'classic-hindu', name: 'Hindu', color: 'bg-yellow-500' },
+        { id: 'royal', name: 'Royal', color: 'bg-purple-500' },
+        { id: 'elegant', name: 'Elegant', color: 'bg-gray-200' },
     ];
 
     return (
         <div className="flex flex-col h-full">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-6 gap-4 flex-wrap">
                 <div>
                     <span className="text-sm font-bold text-blue-600 uppercase tracking-wider">Step 8</span>
                     <h2 className="text-3xl font-bold text-gray-800">Final Review</h2>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-2 sm:gap-3">
                     <button onClick={onEdit} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg flex items-center gap-2">
                         <Edit2 size={18} /> Edit Data
                     </button>
@@ -83,42 +83,44 @@ const FinalReview = ({ onEdit }) => {
                 </div>
             </div>
 
-            <div className="flex-grow flex flex-col md:flex-row gap-8 overflow-hidden">
+            {/* Templates first */}
+            <div className="mb-4">
+                <h3 className="font-bold text-gray-700 mb-2">Choose Template</h3>
+                <div className="flex flex-wrap gap-3">
+                    {themes.map(t => (
+                        <button
+                            key={t.id}
+                            onClick={() => dispatch({ type: TYPES.SET_THEME, payload: t.id })}
+                            className={`group relative w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all
+                                ${theme === t.id ? 'border-blue-500 ring-2 ring-blue-200 scale-105' : 'border-transparent hover:border-gray-200'}
+                                ${t.color}
+                            `}
+                            title={t.name}
+                        >
+                            {theme === t.id && <Check size={18} className="text-white drop-shadow" />}
+                            <span className="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 text-[11px] font-semibold text-gray-700 bg-white px-2 py-1 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 whitespace-nowrap">
+                                {t.name}
+                            </span>
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <div className="flex-grow flex flex-col md:flex-row gap-6 md:gap-8 overflow-visible">
                 <div
                     ref={containerRef}
-                    className="flex-grow overflow-hidden bg-gray-100 p-4 rounded-xl border border-gray-200 shadow-inner flex justify-center items-center relative min-h-[500px]"
+                    className="flex-grow overflow-auto bg-gray-100 p-3 md:p-4 rounded-xl border border-gray-200 shadow-inner flex justify-center items-start relative min-h-[500px]"
                 >
                     <div
                         style={{
                             transform: `scale(${scale})`,
                             transformOrigin: 'center top'
                         }}
-                        className="transition-transform duration-200 ease-out mt-4 shadow-2xl"
+                        className="transition-transform duration-200 ease-out mt-2 md:mt-4 shadow-2xl"
                     >
                          <div ref={printComponentRef} style={{ background: 'white' }}>
                             <BioDataPreview hideControls={true} />
                         </div>
-                    </div>
-                </div>
-
-                <div className="w-full md:w-80 flex-shrink-0 flex flex-col gap-4 overflow-y-auto pr-2">
-                    <h3 className="font-bold text-gray-700">Choose Template</h3>
-                    <div className="grid grid-cols-2 gap-3">
-                        {themes.map(t => (
-                            <button
-                                key={t.id}
-                                onClick={() => dispatch({ type: TYPES.SET_THEME, payload: t.id })}
-                                className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-2
-                                    ${theme === t.id ? 'border-blue-500 ring-2 ring-blue-200' : 'border-transparent hover:border-gray-200'}
-                                    ${t.id === 'modern' ? 'bg-gray-800' : 'bg-white'}
-                                `}
-                            >
-                                <div className={`w-12 h-12 rounded-full shadow-sm ${t.color} flex items-center justify-center mb-1`}>
-                                    {theme === t.id && <Check size={20} className={t.id === 'modern' ? 'text-white' : 'text-gray-800'} />}
-                                </div>
-                                <span className={`text-xs font-medium ${t.id === 'modern' ? 'text-gray-300' : 'text-gray-600'}`}>{t.name}</span>
-                            </button>
-                        ))}
                     </div>
                 </div>
             </div>

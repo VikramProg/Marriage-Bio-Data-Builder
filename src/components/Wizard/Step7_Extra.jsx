@@ -3,7 +3,7 @@ import { useBioData } from '../../context/BioDataContext';
 import ModernInput from '../UI/ModernInput';
 import ModernSelect from '../UI/ModernSelect';
 import { motion } from 'framer-motion';
-import { Plus, Trash2, ListPlus } from 'lucide-react';
+import { Plus, Trash2, ListPlus, ExternalLink } from 'lucide-react';
 import LinkModal from '../UI/LinkModal';
 
 const Step7_Extra = () => {
@@ -90,7 +90,7 @@ const Step7_Extra = () => {
                             placeholder="e.g. Website"
                         />
                     </div>
-                    <div className="md:col-span-4 flex gap-2">
+                    <div className="md:col-span-4 flex flex-col sm:flex-row gap-2">
                         <div className="flex-grow">
                             <ModernInput
                                 label="Field Value"
@@ -103,7 +103,7 @@ const Step7_Extra = () => {
                         <button
                             onClick={handleAddField}
                             disabled={!newField.label}
-                            className="mb-[2px] h-[46px] w-[46px] flex items-center justify-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+                            className="h-[46px] w-full sm:w-[46px] flex items-center justify-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
                             title="Add Field"
                         >
                             <Plus size={24} />
@@ -126,15 +126,28 @@ const Step7_Extra = () => {
                         key={index}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                        className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                     >
-                        <div className="flex items-start gap-4">
-                            <div className="text-xs font-bold px-2 py-1 bg-gray-100 text-gray-600 rounded uppercase tracking-wider mt-1">
+                        <div className="flex items-start gap-3 sm:gap-4 w-full min-w-0">
+                            <div className="text-[11px] font-bold px-2 py-1 bg-gray-100 text-gray-600 rounded uppercase tracking-wider mt-1 shrink-0">
                                 {field.section.split(' ')[0]}
                             </div>
-                            <div>
-                                <p className="font-semibold text-gray-800">{field.label}</p>
-                                <p className="text-gray-600">{field.value}</p>
+                            <div className="min-w-0 space-y-1">
+                                <p className="font-semibold text-gray-800 break-words">{field.label}</p>
+                                {isUrl(field.value) ? (
+                                    <a
+                                        href={field.value}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 text-blue-600 font-medium px-3 py-1.5 bg-blue-50 rounded-full hover:bg-blue-100 transition-colors break-words"
+                                        title={field.value}
+                                    >
+                                        <ExternalLink size={16} />
+                                        <span className="truncate max-w-[220px] sm:max-w-[260px]">{field.linkText || field.value}</span>
+                                    </a>
+                                ) : (
+                                    <p className="text-gray-600 break-words">{field.value}</p>
+                                )}
                             </div>
                         </div>
                         <button
