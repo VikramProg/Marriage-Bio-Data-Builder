@@ -152,10 +152,11 @@ const MainLayout = () => {
 };
 
 function App() {
-  const base = import.meta.env.BASE_URL || '/';
+  const assetBase = import.meta.env.BASE_URL || '/';
+  const routerBase = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '') || '/';
   return (
     <BioDataProvider>
-      <BrowserRouter basename={base}>
+      <BrowserRouter basename={routerBase}>
         <MainLayout />
       </BrowserRouter>
     </BioDataProvider>
