@@ -126,7 +126,7 @@ const Step7_Extra = () => {
                         key={index}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                        className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 p-4 bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                     >
                         <div className="flex items-start gap-3 sm:gap-4 w-full min-w-0">
                             <div className="text-[11px] font-bold px-2 py-1 bg-gray-100 text-gray-600 rounded uppercase tracking-wider mt-1 shrink-0">
@@ -150,12 +150,15 @@ const Step7_Extra = () => {
                                 )}
                             </div>
                         </div>
-                        <button
-                            onClick={() => handleRemoveField(index)}
-                            className="text-red-400 hover:text-red-600 p-2 hover:bg-red-50 rounded-full transition-colors"
-                        >
-                            <Trash2 size={18} />
-                        </button>
+                        <div className="self-end sm:self-start">
+                            <button
+                                onClick={() => handleRemoveField(index)}
+                                className="text-red-400 hover:text-red-600 p-2 hover:bg-red-50 rounded-full transition-colors"
+                                title="Remove"
+                            >
+                                <Trash2 size={18} />
+                            </button>
+                        </div>
                     </motion.div>
                 ))}
             </div>

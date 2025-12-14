@@ -68,19 +68,37 @@ const FinalReview = ({ onEdit }) => {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="flex justify-between items-center mb-6 gap-4 flex-wrap">
+            <div className="flex justify-between items-center mb-3 gap-4 flex-wrap">
                 <div>
                     <span className="text-sm font-bold text-blue-600 uppercase tracking-wider">Step 8</span>
                     <h2 className="text-3xl font-bold text-gray-800">Final Review</h2>
                 </div>
-                <div className="flex gap-2 sm:gap-3">
+                <div className="hidden md:flex items-center gap-2">
                     <button onClick={onEdit} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg flex items-center gap-2">
-                        <Edit2 size={18} /> Edit Data
+                        <Edit2 size={18} /> <span>Edit Data</span>
                     </button>
-                    <button onClick={handleDownloadClick} className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-bold shadow-md flex items-center gap-2">
-                        <Download size={18} /> Download
+                    <button
+                        onClick={handleDownloadClick}
+                        className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-bold shadow-md flex items-center gap-2"
+                        aria-label="Download"
+                        title="Download"
+                    >
+                        <Download size={18} /> <span>Download</span>
                     </button>
                 </div>
+            </div>
+            <div className="flex md:hidden w-full justify-between items-center mb-6 gap-3">
+                <button onClick={onEdit} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg flex items-center gap-2">
+                    <Edit2 size={18} /> <span>Edit Data</span>
+                </button>
+                <button
+                    onClick={handleDownloadClick}
+                    className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-bold shadow-md flex items-center justify-center"
+                    aria-label="Download"
+                    title="Download"
+                >
+                    <Download size={18} />
+                </button>
             </div>
 
             {/* Templates first */}
@@ -98,9 +116,11 @@ const FinalReview = ({ onEdit }) => {
                             title={t.name}
                         >
                             {theme === t.id && <Check size={18} className="text-white drop-shadow" />}
-                            <span className="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 text-[11px] font-semibold text-gray-700 bg-white px-2 py-1 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 whitespace-nowrap">
-                                {t.name}
-                            </span>
+                            {theme === t.id && (
+                                <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-[11px] font-semibold text-gray-700 bg-white px-2 py-1 rounded-lg shadow-sm whitespace-nowrap z-10">
+                                    {t.name}
+                                </span>
+                            )}
                         </button>
                     ))}
                 </div>

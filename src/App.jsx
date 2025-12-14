@@ -47,9 +47,10 @@ const MainLayout = () => {
             {location.pathname === '/create' && (
               <button
                 onClick={() => setShowPreviewModal(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-white/50 hover:bg-white text-blue-700 rounded-full text-sm font-bold border border-blue-100 shadow-sm transition-all"
+                className="flex items-center gap-2 px-3 py-2 bg-white/50 hover:bg-white text-blue-700 rounded-full text-sm font-bold border border-blue-100 shadow-sm transition-all"
               >
-                <Eye size={18} /> Preview
+                <Eye size={18} />
+                <span className="hidden sm:inline">Preview</span>
               </button>
             )}
             <a href={import.meta.env.VITE_TWITTER_URL} target="_blank" rel="noopener noreferrer" title="Twitter Profile" className="p-1">
