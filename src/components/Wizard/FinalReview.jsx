@@ -6,7 +6,7 @@ import html2canvas from 'html2canvas';
 import ImageExportModal from '../UI/ImageExportModal';
 
 const FinalReview = ({ onEdit }) => {
-    const { state } = useBioData();
+    const { state, dispatch, TYPES } = useBioData();
     const { theme } = state;
     const printComponentRef = useRef();
     const [isModalOpen, setIsModalOpen] = useState(false);
