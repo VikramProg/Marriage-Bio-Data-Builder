@@ -12,7 +12,7 @@ const WelcomeScreen = ({ onStart }) => {
                 className="mb-8 relative"
             >
                 <div className="w-28 h-28 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 relative overflow-hidden">
-                    <img src={`${import.meta.env.BASE_URL || '/'}logo.svg`} alt="SaathJanam logo" className="absolute inset-0 w-full h-full object-contain p-4" />
+                    <img src={`${window.location.pathname.startsWith('/Marriage-Bio-Data-Builder') ? '/Marriage-Bio-Data-Builder/' : '/'}logo.svg`} alt="SaathJanam logo" className="absolute inset-0 w-full h-full object-contain p-4" />
                     <Heart className="text-red-500 w-12 h-12 fill-current animate-pulse opacity-40" />
                 </div>
                 <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">

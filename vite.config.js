@@ -6,8 +6,8 @@ import autoprefixer from 'autoprefixer'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // Use repo name for GitHub Pages so routes/assets resolve correctly
-  base: '/Marriage-Bio-Data-Builder/',
+  // Relative base so assets work on custom domain root and GitHub Pages subfolder
+  base: './',
   css: {
     postcss: {
       plugins: [
