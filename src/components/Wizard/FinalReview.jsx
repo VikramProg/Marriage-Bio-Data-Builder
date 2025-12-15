@@ -12,7 +12,17 @@ const FinalReview = ({ onEdit }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
+    const trackDownloadClick = () => {
+        if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+            window.gtag('event', 'download_click', {
+                event_category: 'engagement',
+                event_label: 'Final Review Download',
+            });
+        }
+    };
+
     const handleDownloadClick = () => {
+        trackDownloadClick();
         setIsModalOpen(true);
     };
 
