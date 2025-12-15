@@ -8,6 +8,7 @@ import FinalReview from './components/Wizard/FinalReview';
 import PrintScaler from './components/Preview/PrintScaler';
 import { Eye, X, Github, Twitter } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import CookieConsent from './components/UI/CookieConsent';
 
 const repoBase = '/Marriage-Bio-Data-Builder';
 const isGhPages = typeof window !== 'undefined' && window.location.pathname.startsWith(repoBase);
@@ -110,6 +111,8 @@ const MainLayout = () => {
           </AnimatePresence>
         </div>
       </main>
+
+      {location.pathname !== '/print' && <CookieConsent />}
 
       {/* Preview Modal (Desktop & Mobile) */}
       <AnimatePresence>
