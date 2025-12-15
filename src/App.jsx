@@ -23,7 +23,7 @@ const MainLayout = () => {
 
   // Handle Title Update
   React.useEffect(() => {
-    document.title = 'SathJanam';
+    document.title = 'SaathJanam';
   }, []);
 
   // Handle Navigation Callbacks

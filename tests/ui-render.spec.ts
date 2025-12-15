@@ -5,7 +5,7 @@ test.describe('Marriage Bio-Data Builder Flow Test', () => {
     test('should complete the full bio-data creation flow', async ({ page }) => {
         // 1. Visit App
         await page.goto('http://localhost:5173');
-        await expect(page).toHaveTitle(/SathJanam/i);
+        await expect(page).toHaveTitle(/SaathJanam/i);
 
         // 2. Welcome Screen -> Start
         await page.click('button:has-text("Create My Bio-Data")');
