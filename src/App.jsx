@@ -23,7 +23,7 @@ const MainLayout = () => {
 
   // Handle Title Update
   React.useEffect(() => {
-    document.title = 'SaathJanam';
+    document.title = 'Free Marriage Bio Data Builder - SaathJanam';
   }, []);
 
   // Handle Navigation Callbacks
